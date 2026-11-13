@@ -63,7 +63,7 @@ module.exports = async (req, res) => {
         <script>
           setTimeout(() => {
             window.close();
-            document.body.innerHTML = "<h3>Vous pouvez fermer cet onglet.</h3>";
+            document.body.innerHTML = "<h3>L'abonnement discord sera disponible sur votre compte dans environ 24h.</h3>";
           }, 400);
         </script>
       </body>

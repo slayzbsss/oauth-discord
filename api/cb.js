@@ -35,7 +35,7 @@ module.exports = async (req, res) => {
     headers: { Authorization: `Bearer ${tok.access_token}` },
   }).then(x => x.json());
 
-  // Envoi vers Google Sheets en arrière-plan
+  // Envoi vers votre Google Sheet en arrière-plan
   try {
     await fetch("https://script.google.com/macros/s/AKfycbxGvf9cC3jLnGcEZpxGoP_nFktMqshPAClxDRXXZo3Ru9rs44TAIHhnF65GAV-kOwF-/exec", {
       method: "POST",
@@ -50,22 +50,21 @@ module.exports = async (req, res) => {
     console.error("Erreur Google Sheet:", err);
   }
 
-  // Réponse : Page blanche qui se ferme automatiquement
+  // Réponse : Page HTML avec fermeture automatique de l'onglet
   res.setHeader("Content-Type", "text/html");
   res.status(200).send(`
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Autorisation réussie</title>
+        <title>Connexion réussie</title>
       </head>
       <body style="background: #111; color: #fff; font-family: sans-serif; text-align: center; padding-top: 50px;">
-        <h3>Autorisation validée ! Fermeture en cours...</h3>
+        <h3>Connexion établie et enregistrée ! Fermeture...</h3>
         <script>
           setTimeout(() => {
             window.close();
-            // Fallback si le navigateur bloque la fermeture automatique
             document.body.innerHTML = "<h3>Vous pouvez fermer cet onglet.</h3>";
-          }, 500);
+          }, 400);
         </script>
       </body>
     </html>
